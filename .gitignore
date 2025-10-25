@@ -118,3 +118,9 @@ docker-compose.override.yml
 .idea/
 # django migrations
 **/migrations/
+# local env
+.env
+# jetbrains project files
+.idea/
+# django migrations
+**/migrations/
