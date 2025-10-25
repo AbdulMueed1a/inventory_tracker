@@ -1,0 +1,114 @@
+# =====================================
+# Python
+# =====================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# =====================================
+# Django / DRF
+# =====================================
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+static/
+local_settings.py
+.env
+.env.*
+.envrc
+
+# Django cache, migrations (if generated automatically)
+*/__pycache__/
+*/migrations/__pycache__/
+*.mo
+
+# =====================================
+# PyCharm / JetBrains
+# =====================================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =====================================
+# VSCode (if you ever open it)
+# =====================================
+.vscode/
+
+# =====================================
+# OS / Misc
+# =====================================
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# =====================================
+# Testing / Coverage
+# =====================================
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+htmlcov/
+coverage.xml
+
+# =====================================
+# Logs & Reports
+# =====================================
+logs/
+*.log
+*.out
+*.err
+
+# =====================================
+# MyPy / Pyre / Pylint
+# =====================================
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+
+# =====================================
+# Docker / Containers (if used)
+# =====================================
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
