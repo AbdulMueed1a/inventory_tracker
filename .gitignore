@@ -112,3 +112,9 @@ logs/
 *.pid.lock
 docker-compose.override.yml
 
+# local env
+.env
+# jetbrains project files
+.idea/
+# django migrations
+**/migrations/
