@@ -30,7 +30,7 @@ Database: Default is SQLite. For PostgreSQL or others, update DATABASES in setti
 ## Install & Run
 
 1. Clone the repo:
-   - git clone https://github.com/<your-user-or-org>/inventory-tracker.git
+   - git clone https://github.com/AbdulMueed1a/inventory_tracker.git
    - cd inventory-tracker
 
 2. Create & activate virtualenv:
