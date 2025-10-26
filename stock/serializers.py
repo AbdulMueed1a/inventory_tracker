@@ -1,14 +1,74 @@
 from rest_framework import serializers  # type: ignore
 from .models import Item
 from django.utils import timezone
+from datetime import date
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    in_stock = serializers.ReadOnlyField()
+    in_stock = serializers.SerializerMethodField()
     days_remaining = serializers.SerializerMethodField()
+    is_expired = serializers.SerializerMethodField()
+
     class Meta:
-        fields = '__all__'
         model = Item
+        fields = (
+            'id',
+            'name',
+            'price',
+            'added',
+            'expiry',
+            'quantity',
+            'low_stock',
+            'in_stock',
+            'days_remaining',
+            'is_expired',
+        )
+        read_only_fields = ('id', 'added', 'in_stock', 'days_remaining', 'is_expired')
+
+    def get_in_stock(self, obj):
+        try:
+            return bool(getattr(obj, 'quantity', 0) and getattr(obj, 'quantity', 0) > 0)
+        except Exception:
+            return False
+
+    def get_days_remaining(self, obj):
+        """
+        Returns integer days remaining until expiry (0 if expired or no expiry).
+        """
+        expiry = getattr(obj, 'expiry', None)
+        if expiry is None:
+            return None
+        # expiry may be date or datetime
+        try:
+            today = timezone.localdate() if hasattr(timezone, 'localdate') else date.today()
+        except Exception:
+            today = date.today()
+        if hasattr(expiry, 'date'):
+            expiry_date = expiry.date()
+        else:
+            expiry_date = expiry
+        try:
+            delta = (expiry_date - today).days
+            return max(delta, 0)
+        except Exception:
+            return None
+
+    def get_is_expired(self, obj):
+        expiry = getattr(obj, 'expiry', None)
+        if expiry is None:
+            return False
+        try:
+            today = timezone.localdate() if hasattr(timezone, 'localdate') else date.today()
+        except Exception:
+            today = date.today()
+        if hasattr(expiry, 'date'):
+            expiry_date = expiry.date()
+        else:
+            expiry_date = expiry
+        try:
+            return expiry_date < today
+        except Exception:
+            return False
 
     def validate_quantity(self, value):
         if value < 0:
