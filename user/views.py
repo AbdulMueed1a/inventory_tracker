@@ -19,4 +19,17 @@ class SignupView(generics.CreateAPIView):
         data['access'] = str(refresh.access_token)
         data['refresh'] = str(refresh)
         headers = self.get_success_headers(serializer.data)
-        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        # return response with CORS headers (lightweight fix)
+        resp = Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        resp['Access-Control-Allow-Origin'] = '*'
+        resp['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+        return resp
+
+    def options(self, request, *args, **kwargs):
+        # Handle preflight CORS request
+        resp = Response(status=status.HTTP_200_OK)
+        resp['Access-Control-Allow-Origin'] = '*'
+        resp['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+        return resp
